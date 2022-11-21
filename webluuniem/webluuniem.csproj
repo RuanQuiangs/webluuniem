@@ -131,9 +131,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BrandController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +153,22 @@
     <Compile Include="Migrations\202211131111424_db2.cs" />
     <Compile Include="Migrations\202211131111424_db2.designer.cs">
       <DependentUpon>202211131111424_db2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211151031354_DB3.cs" />
+    <Compile Include="Migrations\202211151031354_DB3.designer.cs">
+      <DependentUpon>202211151031354_DB3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211191315273_Db4.cs" />
+    <Compile Include="Migrations\202211191315273_Db4.designer.cs">
+      <DependentUpon>202211191315273_Db4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211191557001_Db5.cs" />
+    <Compile Include="Migrations\202211191557001_Db5.designer.cs">
+      <DependentUpon>202211191557001_Db5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202211210620448_db6.cs" />
+    <Compile Include="Migrations\202211210620448_db6.designer.cs">
+      <DependentUpon>202211210620448_db6.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Brand.cs" />
@@ -2397,6 +2420,22 @@
     <Content Include="Content\admin\plugins\summernote\summernote.min.js.map" />
     <Content Include="Content\admin\plugins\toastr\toastr.js.map" />
     <Content Include="Areas\Admin\Views\Home\Users.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Brand\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2425,17 +2464,21 @@
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\ProductCategory.cshtml" />
-    <Content Include="Views\Home\ViewUser.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Create.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\Change.cshtml" />
+    <Content Include="Views\Home\Password.cshtml" />
+    <Content Include="Views\Order\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Post\" />
     <Folder Include="Content\images\avatars\" />
     <Folder Include="Context\" />
   </ItemGroup>
@@ -2461,6 +2504,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211131111424_db2.resx">
       <DependentUpon>202211131111424_db2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211151031354_DB3.resx">
+      <DependentUpon>202211151031354_DB3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211191315273_Db4.resx">
+      <DependentUpon>202211191315273_Db4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211191557001_Db5.resx">
+      <DependentUpon>202211191557001_Db5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211210620448_db6.resx">
+      <DependentUpon>202211210620448_db6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

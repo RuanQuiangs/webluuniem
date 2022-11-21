@@ -1,0 +1,83 @@
+﻿@model IEnumerable<webluuniem.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .frame-categoy{
+        
+        margin: 10px auto;
+        padding: 10px;
+    }
+</style>
+<div class="frame-categoy">
+    <h2>Danh sách danh mục</h2>
+
+    <p style="float: right; color:white; " class="btn btn-success">
+        @Html.ActionLink("Tạo mới", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowOnHomePage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateOnUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateOnUtc)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+
+                <td>
+                    <img src="~/Content/images/items/@Html.DisplayFor(modelItem => item.Avatar)" style="width:50px; height:50px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateOnUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateOnUtc)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.CategoryID }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.CategoryID }) |
+                   <a href="~/Admin/Category/Delete?id=@item.CategoryID" onclick="return confirm('Bạn có chắc muốn xóa ? xóa sẽ xóa hết tất cả sản phẩm thuộc danh mục này')">Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

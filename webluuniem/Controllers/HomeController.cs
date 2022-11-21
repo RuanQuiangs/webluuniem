@@ -4,12 +4,14 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using webluuniem.Models;
 
 namespace webluuniem.Controllers
@@ -38,7 +40,157 @@ namespace webluuniem.Controllers
             return View(userList);
         }
 
+
+
         
+        public ActionResult Profile()
+        {
+            if (Session["UserID"] != null)
+            {
+                var userid = Int32.Parse(Session["UserID"].ToString());
+                
+                var x = _context.Users.SingleOrDefault(c => c.UserId == userid);
+                return View(x);
+            }
+            return RedirectToAction("Login");
+
+        }
+
+        public ActionResult Change()
+        {
+            if (Session["UserID"] != null)
+            {
+                var userid = Int32.Parse(Session["UserID"].ToString());
+                var x = _context.Users.SingleOrDefault(c => c.UserId == userid);
+               
+                return View(x);
+            }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Password()
+        {
+            if (Session["UserID"] != null)
+            {
+
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Password(EditPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userid = Int32.Parse(Session["UserID"].ToString());
+                var _User = _context.Users.SingleOrDefault(c => c.UserId == userid);
+                if (_User != null)
+                {
+                    var pass = new LoginModel
+                    {
+                        Username = _User.Username,
+                        Password = model.PasswordOld,
+
+                    };
+
+                    if (_User.Password != PasswordEncryption(pass))
+                    {
+                        ViewBag.error = "Mật khẩu không chính xác";
+                        return View();
+                    }
+                    if (model.PasswordNew != model.RePassword)
+                    {
+                        ViewBag.error = "Mật khẩu nhập lại không chính xác";
+                        return View();
+                    }
+                    var pass2 = new LoginModel
+                    {
+                        Username = _User.Username,
+                        Password = model.PasswordNew,
+
+                    };
+                    _User.Password = PasswordEncryption(pass2);
+                    _context.Users.AddOrUpdate(_User);
+                    _context.SaveChanges();
+                    return RedirectToAction("Profile");
+                }
+                return RedirectToAction("login");
+
+            }
+            else
+            {
+                ViewBag.error = "Thay đổi thất bại";
+                return View();
+            }
+        }
+
+            [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Change(UserModel model, HttpPostedFileBase uploadhinh)
+        {
+            if (ModelState.IsValid)
+            {
+                var userid = Int32.Parse(Session["UserID"].ToString());
+                var _User = _context.Users.SingleOrDefault(c => c.UserId == userid);
+                if (_User != null)
+                {
+                    var check = _context.Users.FirstOrDefault(c => c.Email == model.Email);
+                    if (check != null && check.UserId != userid)
+                    {
+                        ViewBag.error = "Email đã có người sử dụng";
+                        return View();
+                    }
+
+                    if (IsEmail(model.Email) == false)
+                    {
+                        ViewBag.error = "Email không đúng định dạng vd: user@gmail.com";
+                        return View();
+                    }
+
+                    _User.FirstName = model.FirstName;
+                    _User.LastName = model.LastName;
+                    _User.Address = model.Address;
+                    
+                    if (model.Email != null)
+                    {
+                        _User.Email = model.Email;
+                    }
+                    
+                    _User.Introduce = model.Introduce;
+                    _User.Phone = model.Phone;
+                    _User.Slug = convertToUnSign2(model.FirstName + model.LastName);
+                    _context.Users.AddOrUpdate(_User);
+                    _context.SaveChanges();
+                    if (uploadhinh != null && uploadhinh.ContentLength > 0)
+                    {
+                        int id = _User.UserId;
+
+                        string _FileName = "";
+
+                        int index = uploadhinh.FileName.IndexOf('.');
+
+                        _FileName = "avatar" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
+                        string _path = Path.Combine(Server.MapPath("~/Content/images/avatars"), _FileName);
+                        uploadhinh.SaveAs(_path);
+                        _User.Avatar = _FileName;
+
+                    }
+
+                    _context.SaveChanges();
+                    return RedirectToAction("Profile");
+                }
+                
+
+            }
+            ViewBag.error = "Thay đổi thất bại";
+            return View();
+        }
+
+
+
         public ActionResult Register()
         {
             return View();
@@ -126,33 +278,7 @@ namespace webluuniem.Controllers
             return View();
 
         }
-        /*
-        [HttpPost]
-        public ActionResult Edit(NhanVien nv, HttpPostedFileBase uploadhinh)
-        {
-            NhanVien unv = db.NhanVien.FirstOrDefault(x => x.nhanvien_id == nv.nhanvien_id);
-            unv.TenNhanVien = nv.TenNhanVien;
-            unv.DiaChi = nv.DiaChi;
-            unv.SoDienThoai = nv.SoDienThoai;
-
-            if (uploadhinh != null && uploadhinh.ContentLength > 0)
-            {
-                int id = nv.nhanvien_id;
-
-                string _FileName = "";
-                int index = uploadhinh.FileName.IndexOf('.');
-                _FileName = "nv" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
-                string _path = Path.Combine(Server.MapPath("~/Upload/nhanvien"), _FileName);
-                uploadhinh.SaveAs(_path);
-                unv.hinh = _FileName;
-            }
-
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-        */
-
+       
 
         public ActionResult Login()
         {
@@ -175,6 +301,7 @@ namespace webluuniem.Controllers
                     Session["Email"] = data.Email;
                     Session["UserID"] = data.UserId;
                     Session["IsAdmin"] = data.IsAdmin;
+                    Session["Avatar"] = data.Avatar;
                     return RedirectToAction("Index");
                 }
                 else

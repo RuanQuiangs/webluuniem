@@ -15,6 +15,7 @@ namespace webluuniem.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int CategoryID { get; set; }
+
         public string CategoryName { get; set; }
 
         public string Slug { get; set; }
@@ -27,7 +28,7 @@ namespace webluuniem.Models
 
         public DateTime CreateOnUtc { get; set; } = DateTime.UtcNow;
 
-        public DateTime UpdateOnUtc { get; set; }
+        public DateTime UpdateOnUtc { get; set; } = DateTime.UtcNow;
 
         public bool Deleted { get; set; } = false;
     }

@@ -17,7 +17,7 @@ namespace webluuniem.Models
 
         public string ProductName { get; set; }
 
-        public int CategoryID { get; set; }       
+        public int CategoryID { get; set; }
 
         public Category category { get; set; }
 
@@ -25,13 +25,16 @@ namespace webluuniem.Models
 
         public int Discount { set; get; }
 
+        [MaxLength(200)]
         public string DescribeShort { get; set; }
-
+                
+        
         public string DescribeFull { get; set; }
 
-        public string OEM { get; set; }
-
         public string BrandID { get; set; }
+
+       
+        public Brand Brand { get; set; }
 
         public string Image { get; set; }
 

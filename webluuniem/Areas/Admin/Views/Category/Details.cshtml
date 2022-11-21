@@ -1,0 +1,105 @@
+﻿@model webluuniem.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .frame-detail {
+        width: 1000px;
+        margin: 20px auto;
+        padding: 50px;
+    }
+
+    dt {
+        padding: 10px;
+        border-top: solid 1px white;
+    }
+
+    dd {
+       
+        padding: 10px;
+    }
+</style>
+<div class="frame-detail">
+    <h2>Chi tiết</h2>
+
+    <div>
+        <h4>Danh Mục</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </dt>
+
+
+           
+
+            <dd>
+                <img src="~/Content/images/items/@Html.DisplayFor(model => model.Avatar)" style="width:400; width: 400px" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ShowOnHomePage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ShowOnHomePage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DisplayOrder)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DisplayOrder)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateOnUtc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateOnUtc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdateOnUtc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UpdateOnUtc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Deleted)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("sửa", "Edit", new { id = Model.CategoryID }) |
+        @Html.ActionLink("Quay lại danh sách", "Index")
+    </p>
+</div>

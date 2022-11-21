@@ -1,0 +1,79 @@
+﻿@model IEnumerable<webluuniem.Models.Brand>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Avatar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowOnHomePage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateOnUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateOnUtc)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandName)
+        </td>
+
+        <td>
+            <img src="~/Content/images/items/@Html.DisplayFor(modelItem => item.Avatar)" style="width:50px; height:50px;" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisplayOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateOnUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateOnUtc)
+        </td>
+
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id = item.BrandID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id = item.BrandID }) |
+            <a href="~/Admin/Brand/Delete?id=@item.BrandID" onclick=" return confirm('Bạn có chắc muốn xóa ? xóa Thương hiệu sẽ đi kèm xóa tất cả sản phẩm theo tên thương hiệu')">Xóa</a>
+        </td>
+    </tr>
+}
+
+</table>
