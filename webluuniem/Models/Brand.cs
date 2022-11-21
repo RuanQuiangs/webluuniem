@@ -30,8 +30,8 @@ namespace webluuniem.Models
 
         public DateTime CreateOnUtc { get; set; } = DateTime.UtcNow;
 
-        public DateTime UpdateOnUtc { get; set; }
-        
+        public DateTime UpdateOnUtc { get; set; } = DateTime.UtcNow;
+
         public bool Deleted { get; set; }
     }
 }

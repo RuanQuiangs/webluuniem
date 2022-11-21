@@ -1,0 +1,80 @@
+﻿@model webluuniem.Models.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .frame-categoy {
+        margin: 20px auto;
+        padding: 40px;
+       
+    }
+</style>
+<div class="frame-categoy">
+    <h2>Danh Mục</h2>
+    <h2>Tạo mới</h2>
+    <h4 style="color:red;">@ViewData["error"]</h4>
+    <form action="" method="post" enctype="multipart/form-data">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShowOnHomePage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.ShowOnHomePage)
+                        @Html.ValidationMessageFor(model => model.ShowOnHomePage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <br>
+                <div class="control-label col-md-10"><strong>Ảnh đại diện:</strong></div>
+
+                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" class="p-3" />
+                <hr>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Tạo" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+    </form>
+</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

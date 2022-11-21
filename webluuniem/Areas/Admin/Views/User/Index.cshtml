@@ -1,0 +1,120 @@
+﻿
+@model PagedList.IPagedList<webluuniem.Models.User>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var x = Model.Count;
+}
+<style>
+    .pagination li a {
+        padding: 5px;
+        margin: 3px;
+        border: solid 1px blue;
+    }
+
+    .frame-index {
+        margin: 10px auto;
+        padding: 10px;
+    }
+</style>
+<div class="frame-index">
+    <h2>Người dùng</h2>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="~/Admin/User/Index">
+                        <div class="input-group">
+                            <input type="search" class="form-control form-control-lg" placeholder="Gõ từ khóa để tìm" name="searchString">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h6>Có <a class="text-danger">@x</a>  kết quả </h6>
+        </div>
+    </section>
+
+    <p>
+
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <h4 style="color:red;">@ViewData["error"]</h4>
+    <table class="table">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Username)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().IsAdmin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreationTime)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <img src="~/Content/images/avatars/@Html.DisplayFor(modelItem => item.Avatar)" style="width:50px; height:50px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAdmin)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                    <a href="~/Admin/User/Delete?id=@item.UserId" onclick="return confirm('Bạn có chắc muốn xóa tài khoản này. Tài khoản đã bị xóa không thể đăng nhập')">Xóa</a>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    <br />
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br>
+    <br>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+
+</div>

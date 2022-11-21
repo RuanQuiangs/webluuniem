@@ -9,10 +9,10 @@ namespace webluuniem.Controllers
     {
         // GET: Product
         Context _context = new Context();
-        public ActionResult Detail(int id)
+        public ActionResult Detail(string slug)
         {
-
-            var x = _context.Products.SingleOrDefault(c => c.ProductID == id);
+           
+            var x = _context.Products.FirstOrDefault(c=>c.Slug == slug);       
             return View(x);
         }
 
@@ -25,35 +25,16 @@ namespace webluuniem.Controllers
 
         [HttpGet]
 
-        public ActionResult Create()
+   
+        public ActionResult Offers()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Product model)
+        public ActionResult Search()
         {
-            try
-            {
-                if(model == null)
-                {
-                    ViewBag.error = "Lỗi không lấy được dữ liệu";
-                    return View();
-                }
-                else
-                {
-                    _context.Products.Add(model);
-                    _context.SaveChanges();
-                    return ViewBag.success = "Tạo thành công";
-                }
-            }
-            catch
-            {
-                ViewBag.error = "Tạo không thành công";
-                return View();
-            }
-            
+            return View();
         }
+        
     }
 }

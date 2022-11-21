@@ -10,7 +10,19 @@ namespace webluuniem.Models
     {
         public List<Product> ProductList { get; set; }
 
-        public List<Category> CategoryList { get; set; } 
+        public List<Category> CategoryList { get; set; }
+
+        
+
+
+    }
+
+    public class CreateProduct
+    {
+        public Product Product { get; set; }
+
+        public List<Category> CategoryList { get; set; }
+
     }
 }
 

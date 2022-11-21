@@ -1,38 +1,49 @@
-﻿
+﻿@model IEnumerable<webluuniem.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
 @{
     ViewBag.Title = "Index";
 }
 
-@model List<webluuniem.Context.Category>
 
 <section class="section-content padding-y">
     <div class="container">
+        <div class="card mb-3">
+            <div class="card-body">
+                <ol class="breadcrumb float-left">
+                    <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="~/Category/Index">Danh Mục</a></li>
+                </ol>
+            </div> <!-- card-body .// -->
+        </div>
+ 
+    <nav class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
 
-        <nav class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-3">
-
-                    <div class="card card-category">
-                        <div class="img-wrap" style="background: #ffd7d7">
-                            <img src="~/Content/images/items/@item.Avatar">
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title"><a href="#">@item.Name</a></h4>
-                            <ul class="list-menu">
-                                <li><a href="">Unisex T shirts</a></li>
-                                <li><a href="">Casual shirts</a></li>
-                                <li><a href="">Scherf Ice cream</a></li>
-                                <li><a href="">Another category</a></li>
-                                <li><a href="">Great items name</a></li>
-                                <li><a href="">Great items name</a></li>
-                            </ul>
-                        </div>
+                <div class="card card-category">
+                    <div class="img-wrap" style="background: #ffd7d7">
+                        <img src="~/Content/images/items/@item.Avatar">
                     </div>
-                </div> <!-- col.// -->
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">@item.CategoryName</a></h4>
+                        <ul class="list-menu">
+                            <p>Số lượng sản phẩm <b>0</b></p>
+                            <i>"@item.Description"</i>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
 
-            }
-        </nav> <!-- row.// -->
+    }
+    </nav> <!-- row.// -->
 
 
     </div> <!-- container .//  -->

@@ -29,14 +29,14 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-person-booth"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">CPU Traffic</span>
+                        <span class="info-box-text">Online</span>
                         <span class="info-box-number">
-                            10
-                            <small>%</small>
+                          @Session["Online"]
                         </span>
+                      
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -45,11 +45,12 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-eye"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Likes</span>
-                        <span class="info-box-number">41,410</span>
+                        
+                        <span class="info-box-text">Tổng truy cập </span>
+                        <span class="info-box-number"> @Session["Visit"]</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -64,7 +65,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Sales</span>
+                        <span class="info-box-text">Đã bán</span>
                         <span class="info-box-number">760</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -77,8 +78,8 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">New Members</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-text">Thành viên mới</span>
+                        <span class="info-box-number">121</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -92,7 +93,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Monthly Recap Report</h5>
+                        <h5 class="card-title">Báo cáo tháng</h5>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -103,7 +104,7 @@
                                     <i class="fas fa-wrench"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <a href="#" class="dropdown-item">Action</a>
+                                    <a href="#" class="dropdown-item">Hoạt động</a>
                                     <a href="#" class="dropdown-item">Another action</a>
                                     <a href="#" class="dropdown-item">Something else here</a>
                                     <a class="dropdown-divider"></a>
@@ -132,11 +133,11 @@
                             <!-- /.col -->
                             <div class="col-md-4">
                                 <p class="text-center">
-                                    <strong>Goal Completion</strong>
+                                    <strong>Hoàn thành mục tiêu</strong>
                                 </p>
 
                                 <div class="progress-group">
-                                    Add Products to Cart
+                                    Thêm sản phẩm vào giỏ
                                     <span class="float-right"><b>160</b>/200</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-primary" style="width: 80%"></div>
@@ -145,7 +146,7 @@
                                 <!-- /.progress-group -->
 
                                 <div class="progress-group">
-                                    Complete Purchase
+                                    Hoàn tất mua hàng
                                     <span class="float-right"><b>310</b>/400</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-danger" style="width: 75%"></div>
@@ -154,16 +155,16 @@
 
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
-                                    <span class="progress-text">Visit Premium Page</span>
-                                    <span class="float-right"><b>480</b>/800</span>
+                                    <span class="progress-text">Lượt ghé thăm</span>
+                                    <span class="float-right"><b>1480</b>/2000</span>
                                     <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                                        <div class="progress-bar bg-success" style="width: 78%"></div>
                                     </div>
                                 </div>
 
                                 <!-- /.progress-group -->
                                 <div class="progress-group">
-                                    Send Inquiries
+                                    Gửi phản hồi
                                     <span class="float-right"><b>250</b>/500</span>
                                     <div class="progress progress-sm">
                                         <div class="progress-bar bg-warning" style="width: 50%"></div>
@@ -230,48 +231,11 @@
                 <!-- MAP & BOX PANE -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">US-Visitors Report</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
+                        <h3 class="card-title">Người dùng tại Việt Nam</h3>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7904689.61212707!2d106.48708968338065!3d14.672294291646029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1669126753407!5m2!1svi!2s" class="container-fluid" height="600px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <div class="d-md-flex">
-                            <div class="p-1 flex-fill" style="overflow: hidden">
-                                <!-- Map will be created here -->
-                                <div id="world-map-markers" style="height: 325px; overflow: hidden">
-                                    <div class="map"></div>
-                                </div>
-                            </div>
-                            <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
-                                <div class="description-block mb-4">
-                                    <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                                    <h5 class="description-header">8390</h5>
-                                    <span class="description-text">Visits</span>
-                                </div>
-                                <!-- /.description-block -->
-                                <div class="description-block mb-4">
-                                    <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                                    <h5 class="description-header">30%</h5>
-                                    <span class="description-text">Referrals</span>
-                                </div>
-                                <!-- /.description-block -->
-                                <div class="description-block">
-                                    <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
-                                    <h5 class="description-header">70%</h5>
-                                    <span class="description-text">Organic</span>
-                                </div>
-                                <!-- /.description-block -->
-                            </div><!-- /.card-pane-right -->
-                        </div><!-- /.d-md-flex -->
-                    </div>
+                   
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

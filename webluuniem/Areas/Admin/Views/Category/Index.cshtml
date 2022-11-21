@@ -1,0 +1,125 @@
+﻿
+@model PagedList.IPagedList<webluuniem.Models.Category>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var x = Model.Count;
+}
+
+
+
+
+
+<style>
+    .frame-categoy {
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .pagination li a {
+        padding: 5px;
+        margin: 3px;
+        border: solid 1px white;
+    }
+</style>
+
+<div class="frame-categoy">
+    <h2 class="text-left display-6">Danh Mục</h2>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="~/Admin/Category/Index">
+                        <div class="input-group">
+                            <input type="search" class="form-control form-control-lg" placeholder="Gõ từ khóa để tìm" name="searchString">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h6>Có <a class="text-danger">@x</a>  kết quả </h6>
+        </div>
+    </section>
+
+
+    <p style="float: right; color:white; " class="btn btn-success">
+        @Html.ActionLink("Tạo mới", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CategoryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ShowOnHomePage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DisplayOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreateOnUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateOnUtc)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+
+                <td>
+                    <img src="~/Content/images/items/@Html.DisplayFor(modelItem => item.Avatar)" style="width:50px; height:50px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateOnUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateOnUtc)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.CategoryID }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.CategoryID }) |
+                    <a href="~/Admin/Category/Delete?id=@item.CategoryID" onclick="return confirm('Bạn có chắc muốn xóa ? xóa sẽ xóa hết tất cả sản phẩm thuộc danh mục này')">Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<br />
+
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+<br />
+<br />
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

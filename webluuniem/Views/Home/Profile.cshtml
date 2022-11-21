@@ -1,0 +1,129 @@
+﻿@model webluuniem.Models.User
+
+
+<style>
+    .frame-profile, .frame-profile2{
+        width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+        background: white;
+        height: auto;
+        
+    }
+
+    .dl-horizontal {
+        width: 50%;
+        float: left;
+        padding: 20px;
+        
+    }
+
+    dd {
+        padding: 10px 20px;
+    }
+    a{
+        padding: 0px 20px;
+        float: left;
+        
+    }
+    dd {
+        font-weight: bold;
+        width: 100%;
+        text-align: right;
+       
+    }
+    .btn:hover{
+        color:blue;
+    }
+    
+</style>
+
+@if (Session["UserId"] == null)
+{
+    <style>
+        .frame-profile{
+            display:none;
+        }
+        
+
+    </style>
+
+    <div class="frame-profile2">
+        <h2 style="color:red">Bạn chưa đăng nhập</h2>
+        <div class="btn btn-success p-2 m-3">
+          <a href="Login" style="color:white">Đăng Nhập</a>
+        </div>
+        <div class="btn btn-danger text-white p-2 m-3">
+            <a href="Register" style="color:white"> Đăng Kí</a>
+        </div>
+    </div>
+
+}
+
+
+
+<div class="frame-profile">
+    <div>
+        <h2>Thông tin cá nhân</h2>
+
+        <hr />
+
+        <dl class="dl-horizontal" style="border-right: solid 1px gray;">
+
+            <dd>
+                <a class="a">Id người dùng:</a> @Html.DisplayFor(model => model.UserId)
+            </dd>
+            <dd>
+                <a>Tên đăng nhập:</a>@Html.DisplayFor(model => model.Username)
+            </dd>
+            <dd>
+                <a>Họ:</a>@Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dd>
+                <a>Tên:</a>@Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dd>
+                <a>Email:</a> @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dd>
+                <a>Địa chỉ:</a> @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dd>
+                <a>Số điện thoại:</a> @Html.DisplayFor(model => model.Phone)
+            </dd>
+        </dl>
+        <dl class="dl-horizontal">
+
+            <dd>
+                <a>Thông tin tài khoản:</a> @Html.DisplayFor(model => model.Introduce)
+            </dd>
+
+            <dd>
+                <a>Thời gian tạo tài khoản:</a> @Html.DisplayFor(model => model.CreationTime)
+            </dd>
+
+            <dd>
+                <a>Ảnh đại diện:</a>
+                <img src="~/Content/images/avatars/@Html.DisplayFor(model => Model.Avatar) " style="width: 200px; height: 200px; border: solid 1px gray;" />
+            </dd>
+
+        </dl>
+        <div class="btn btn-success text-white ">
+            @Html.ActionLink("Đổi thông tin", "Change", new { /* id = Model.PrimaryKey */ })
+        </div>
+        <div class="btn btn-warning text-white ">
+            @Html.ActionLink("Đổi mật khẩu", "Password", new { /* id = Model.PrimaryKey */ })
+        </div>
+        <div class="btn btn-danger text-white ">
+            @Html.ActionLink("Đăng xuất", "Logout", new { /* id = Model.PrimaryKey */ })
+        </div>
+
+    </div>
+
+</div>
+
+<p>
+
+    @Html.ActionLink("Trang chủ", "Index")
+</p>

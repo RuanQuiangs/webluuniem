@@ -1,0 +1,126 @@
+﻿@model webluuniem.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .frame-detail {
+        width: 1000px;
+        margin: 20px auto;
+        padding: 50px;
+    }
+
+    dt {
+        padding: 10px;
+        border-top: solid 1px gray;
+        
+    }
+
+    dd {
+        padding: 10px;
+    }
+</style>
+<div class="frame-detail">
+    <h2>Chi tiết</h2>
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Slug)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Discount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Discount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DescribeShort)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DescribeShort)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DescribeFull)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DescribeFull)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BrandID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BrandID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+
+
+            <dd>
+                <img src="~/Content/images/items/@Html.DisplayFor(model => model.Image)" style="width:400px; width: 400px" />
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Deleted)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("sửa", "Edit", new { id = Model.ProductID }) |
+        @Html.ActionLink("Quay lại danh sách", "Index")
+    </p>
+</div>

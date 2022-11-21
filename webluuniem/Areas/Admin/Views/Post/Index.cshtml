@@ -1,0 +1,110 @@
+﻿
+@model PagedList.IPagedList<webluuniem.Models.Post>
+@using PagedList.Mvc;
+
+
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+        var x = Model.Count;
+    }
+
+    <style>
+        .pagination li a {
+            padding: 5px;
+            margin: 3px;
+            border: solid 1px white;
+        }
+
+        .frame-index {
+            margin: 10px auto;
+            padding: 10px;
+        }
+    </style>
+    <div class="frame-index">
+        <h2>Bài viết</h2>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <form action="~/Admin/Post/Index">
+                            <div class="input-group">
+                                <input type="search" class="form-control form-control-lg" placeholder="Gõ từ khóa để tìm" name="searchString">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-lg btn-default">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <h6>Có <a class="text-danger">@x</a>  kết quả </h6>
+            </div>
+        </section>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().PostID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().PostTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().UserID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Deleted)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostTitle)
+                    </td>
+                    <td>
+                        <img src="~/Content/images/items/@Html.DisplayFor(modelItem => item.Image)" style="width:50px; height:50px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deleted)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.PostID }) |
+                        @Html.ActionLink("Chi tiết", "Details", new { id = item.PostID }) |
+                        <a href="~/Admin/Post/Delete?id=@item.PostID" onclick=" return confirm('Bạn có chắc muốn xóa bài viết này ?')">Xóa</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+        <br />
+        <br />
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        <br>
+        <br>
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page }))
+
+    </div>

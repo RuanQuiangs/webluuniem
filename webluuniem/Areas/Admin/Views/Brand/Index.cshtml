@@ -1,0 +1,124 @@
+﻿
+@model PagedList.IPagedList<webluuniem.Models.Brand>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var x = Model.Count;
+}
+
+<style>
+    .pagination li a {
+        padding: 5px;
+        margin: 3px;
+        border: solid 1px white;
+
+    }
+    .frame-index {
+        margin: 10px auto;
+        padding: 10px;
+    }
+</style>
+<div class="frame-index">
+    <h2>Thương hiệu</h2>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="~/Admin/Brand/Index">
+                        <div class="input-group">
+                            <input type="search" class="form-control form-control-lg" placeholder="Gõ từ khóa để tìm" name="searchString">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <h6>Có <a class="text-danger">@x</a>  kết quả </h6>
+    </section>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BrandID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().BrandName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ShowOnHomePage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DisplayOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CreateOnUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateOnUtc)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+
+                <td>
+                    <img src="~/Content/images/items/@Html.DisplayFor(modelItem => item.Avatar)" style="width:50px; height:50px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateOnUtc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateOnUtc)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.BrandID }) |
+                    @Html.ActionLink("Chi tiết", "Details", new { id = item.BrandID }) |
+                    <a href="~/Admin/Brand/Delete?id=@item.BrandID" onclick=" return confirm('Bạn có chắc muốn xóa ? xóa Thương hiệu sẽ đi kèm xóa tất cả sản phẩm theo tên thương hiệu')">Xóa</a>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    <br />
+    <br />
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br>
+    <br>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page }))
+
+</div>

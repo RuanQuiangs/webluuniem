@@ -1,0 +1,71 @@
+﻿@model webluuniem.Models.Post
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .frame-categoy {
+        margin: 20px auto;
+        padding: 40px;
+    }
+</style>
+<div class="frame-categoy">
+    <h2>Bài viết</h2>
+    <h2>Tạo mới</h2>
+    <h4 style="color:red;">@ViewData["error"]</h4>
+    <form action="" method="post" enctype="multipart/form-data">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+        
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PostTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PostText, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <textarea class="form-control" id="PostText" name="PostText" rows="10"></textarea>
+              
+
+                    @Html.ValidationMessageFor(model => model.PostText, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+         
+            <div class="form-group">
+
+                <br>
+                <div class="control-label col-md-10"><strong>Ảnh đại diện:</strong></div>
+
+                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" class="p-3" />
+                <hr>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Tạo" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+    </form>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

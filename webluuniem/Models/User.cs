@@ -48,6 +48,13 @@ namespace webluuniem.Models
 
         public string Password { get; set; }
     }
+
+    public class EditPasswordModel
+    {
+        public string PasswordOld { get; set; }
+        public string PasswordNew { get; set; }
+        public string RePassword { get; set; }
+    }
     public class UserModel:LoginModel
     {
         

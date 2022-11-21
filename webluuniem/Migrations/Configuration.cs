@@ -10,6 +10,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "webluuniem.Models.Context";
         }
 
         protected override void Seed(webluuniem.Models.Context context)

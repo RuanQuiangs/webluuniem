@@ -24,6 +24,7 @@ namespace webluuniem.Models
 
         public DbSet<Brand> Brands { get; set; }
 
-        public DbSet<test> tests { get; set; }
+        public DbSet<Post>Posts { get; set; }
+     
     }
 }

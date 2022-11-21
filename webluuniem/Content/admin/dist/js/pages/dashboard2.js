@@ -121,7 +121,7 @@ $(function () {
    */
   $('#world-map-markers').mapael({
     map: {
-      name: 'usa_states',
+          name: 'vn',
       zoom: {
         enabled: true,
         maxLevel: 10
