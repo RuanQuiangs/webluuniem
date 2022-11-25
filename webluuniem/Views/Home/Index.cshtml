@@ -144,7 +144,7 @@
                             @foreach (var itemchird  in Model.ProductList.Where(c => c.CategoryID == item.CategoryID).Take(8))
                             {
                                 <li class="col-6 col-lg-3 col-md-4">
-                                    <a href="#" class="item">
+                                    <a href="@Url.Action("Detail","Product", new {@slug = itemchird.Slug})" class="item">
                                         <div class="card-body">
                                             <h6 class="title">@itemchird.ProductName</h6>
                                             <img class="img-sm float-right" src="~/Content/images/items/@itemchird.Image">
@@ -179,7 +179,7 @@
         {
             <div class="col-xl-2 col-lg-3 col-md-4 col-6">
                 <div class="card card-sm card-product-grid">
-                    <a href="#" class="img-wrap"> <img src="~/Content/images/items/@item.Image"> </a>
+                    <a href="@Url.Action("Detail","Product", new {@slug = item.Slug})" class="img-wrap"> <img src="~/Content/images/items/@item.Image"> </a>
                     <figcaption class="info-wrap">
                         <a href="@Url.Action("Detail","Product", new {@slug = item.Slug})" class="title">@item.ProductName</a>
                         <div class="price mt-1">@item.Price VND</div> <!-- price-wrap.// -->
@@ -198,80 +198,32 @@
         </header>
 
         <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <article class="card card-post">
-                    <img src="~/Content/images/posts/1.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h6 class="title">Trade Assurance Ocean and Air Shipping Ocean and Air Shipping Ocean and Air Shipping v Ocean and Air Shipping</h6>
-                        <p class="small text-uppercase text-muted">Order protection</p>
-                    </div>
-                </article> <!-- card.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-3 col-sm-6">
-                <article class="card card-post">
-                    <img src="~/Content/images/posts/2.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h6 class="title">Pay anytime</h6>
-                        <p class="small text-uppercase text-muted">Finance solution</p>
-                    </div>
-                </article> <!-- card.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-3 col-sm-6">
-                <article class="card card-post">
-                    <img src="~/Content/images/posts/3.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h6 class="title">Inspection solution</h6>
-                        <p class="small text-uppercase text-muted">Easy Inspection</p>
-                    </div>
-                </article> <!-- card.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-3 col-sm-6">
-                <article class="card card-post">
-                    <img src="~/Content/images/posts/4.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h6 class="title">Ocean and Air Shipping Ocean and Air Shipping Ocean and Air Shipping Ocean and Air Shipping</h6>
-                        <p class="small text-uppercase text-muted">Logistic services</p>
-                    </div>
-                </article> <!-- card.// -->
-            </div> <!-- col.// -->
-            <div class="col-md-3 col-sm-6">
-                <article class="card card-post">
-                    <img src="~/Content/images/posts/4.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h6 class="title">Ocean and Air Shipping Ocean and Air Shipping Ocean and Air Shipping  Ocean and Air Shipping</h6>
-                        <p class="small text-uppercase text-muted">Logistic services</p>
-                    </div>
-                </article> <!-- card.// -->
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-
+            @foreach (var item in Model.PostList.Take(8))
+            {
+                <div class="col-md-3 col-sm-6">
+                
+                    <article class="card card-post">
+                        <a href="@Url.Action("Details","News", new {@slug = item.Slug})">
+                            <img src="~/Content/images/items/@item.Image" class="card-img-top">
+                            </a>
+                        <div class="card-body">
+                            <a href="@Url.Action("Details","News", new {@slug = item.Slug})">
+                                <h6 class="title">@item.PostTitle</h6>
+                            </a>
+                                <p class="small text-uppercase text-muted">@item.PostText.Substring(0, 100)...<a href="@Url.Action("Details","News", new {@slug = @item.Slug})" class="text-danger">Xem thêm</a>
+                        </div>
+                    </article> 
+                
+            </div>
+            }
+            </div> <!-- row.// -->
+        
     </section>
     <!-- =============== SECTION SERVICES .//END =============== -->
     <!-- =============== SECTION REGION =============== -->
  
 <!-- container end.// -->
 <!-- ========================= SECTION SUBSCRIBE  ========================= -->
-<section class="section-subscribe padding-y-lg">
-    <div class="container">
 
-        <p class="pb-2 text-center text-white">Delivering the latest product trends and industry news straight to your inbox</p>
-
-        <div class="row justify-content-md-center">
-            <div class="col-lg-5 col-md-6">
-                <form class="form-row">
-                    <div class="col-md-8 col-7">
-                        <input class="form-control border-0" placeholder="Your Email" type="email">
-                    </div> <!-- col.// -->
-                    <div class="col-md-4 col-5">
-                        <button type="submit" class="btn btn-block btn-warning"> <i class="fa fa-envelope"></i> Subscribe </button>
-                    </div> <!-- col.// -->
-                </form>
-                <small class="form-text text-white-50">We’ll never share your email address with a third-party. </small>
-            </div> <!-- col-md-6.// -->
-        </div>
-
-
-    </div>
-</section>
 </div>
 <!-- ========================= SECTION SUBSCRIBE END// ========================= -->

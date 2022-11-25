@@ -1,0 +1,39 @@
+﻿@model webluuniem.Models.Comment
+
+@{
+    ViewBag.Title = "Comment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h2>Bài viết</h2>
+    <h2>Tạo mới</h2>
+    <h4 style="color:red;">@ViewData["error"]</h4>
+    <form action="~/News/Comment" method="post" enctype="multipart/form-data">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Bình luận bài viết</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" id="Text" name="Text" rows="5"></textarea>
+
+                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Bình luận" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+    </form>
+</div>

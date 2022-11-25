@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="~/Content/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/admin/dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/summernote/summernote-bs4.min.css">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/codemirror/codemirror.css">
+    <link rel="stylesheet" href="~/Content/admin/plugins/codemirror/theme/monokai.css">
+    <!-- SimpleMDE -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/simplemde/simplemde.min.css">
 </head>
 
 
@@ -61,7 +71,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                   
+
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
@@ -260,7 +270,7 @@
                                 </li>
                             </ul>
                         </li>
-                
+
                         <li class="nav-header">EXAMPLES</li>
                         <li class="nav-item">
                             <a href="pages/calendar.html" class="nav-link">
@@ -279,7 +289,7 @@
                                 </p>
                             </a>
                         </li>
-           
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-envelope"></i>
@@ -309,9 +319,9 @@
                                 </li>
                             </ul>
                         </li>
-                       
-                   
-                    
+
+
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -367,3 +377,86 @@
 </body>
 
 </html>
+<script type="text/javascript">
+    //Có thể tác đoạn đầu này bỏ vào file .js sau đó load ra cũng được.
+    SessionUpdater = (function () {
+        var clientMovedSinceLastTimeout = false;
+        var keepSessionAliveUrl = null;
+        var timeout = 5 * 1000 * 60; // 5 phút xử lý load lại session 1 lần
+        function setupSessionUpdater(actionUrl) {
+            // store local value
+            keepSessionAliveUrl = actionUrl;
+            // setup handlers
+            listenForChanges();
+            // start timeout - it'll run after n minutes
+            checkToKeepSessionAlive();
+        }
+        function listenForChanges() {
+            $("body").one("mousemove keydown", function () {
+                clientMovedSinceLastTimeout = true;
+            });
+        }
+        // fires every n minutes - if there's been movement ping server and restart timer
+        function checkToKeepSessionAlive() {
+            setTimeout(function () { keepSessionAlive(); }, timeout);
+        }
+        function keepSessionAlive() {
+            // if we've had any movement since last run, ping the server
+            if (clientMovedSinceLastTimeout && keepSessionAliveUrl != null) {
+                $.ajax({
+                    type: "POST",
+                    url: keepSessionAliveUrl,
+                    success: function (data) {
+                        // reset movement flag
+                        clientMovedSinceLastTimeout = false;
+                        // start listening for changes again
+                        listenForChanges();
+                        // restart timeout to check again in n minutes
+                        checkToKeepSessionAlive();
+                    },
+                    error: function (data) {
+                        console.log("Error posting to " & keepSessionAliveUrl);
+                    }
+                });
+            }
+        }
+        // export setup method
+        return {
+            Setup: setupSessionUpdater
+        };
+    })();
+</script>
+
+<script src="~/Content/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+
+<!-- AdminLTE App -->
+<script src="~/Content/admin/dist/js/adminlte.min.js"></script>
+<!-- Summernote -->
+<script src="~/Content/admin/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- CodeMirror -->
+<script src="~/Content/admin/plugins/codemirror/codemirror.js"></script>
+<script src="~/Content/admin/plugins/codemirror/mode/css/css.js"></script>
+<script src="~/Content/admin/plugins/codemirror/mode/xml/xml.js"></script>
+<script src="~/Content/admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<!-- AdminLTE for demo purposes -->
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    // Summernote
+    $('#summernote').summernote()
+
+    // CodeMirror
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      mode: "htmlmixed",
+      theme: "monokai"
+    });
+  })
+
+<script type="text/javascript">
+    // cài đặt update session KeepSessionAlive mỗi khi có người truy cập web, bạn thay controller Home bằng controller của bạn gắn mã.
+    SessionUpdater.Setup('@Url.Action("KeepSessionAlive","Home")');
+    SessionUpdater.Setup('@Url.Action("KeepSessionAlive","Post")');
+
+</script>

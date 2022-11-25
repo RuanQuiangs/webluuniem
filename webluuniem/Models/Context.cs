@@ -26,5 +26,10 @@ namespace webluuniem.Models
 
         public DbSet<Post>Posts { get; set; }
      
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<ReView> ReViews { get; set; }
+
+        public DbSet<Feedback>Feedbacks { get; set; }
     }
 }

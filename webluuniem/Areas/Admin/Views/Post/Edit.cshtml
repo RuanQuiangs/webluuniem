@@ -22,66 +22,65 @@
         {
             @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Post</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.PostTitle)
+            <div class="form-horizontal">
+                <h4>Post</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.PostID)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PostID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PostTitle, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PostTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PostTitle, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PostTitle, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostText, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 card-body">
+                        <textarea class="form-control" id="PostText summernote" name="PostText" rows="20">@Model.PostText</textarea>
+                        @Html.ValidationMessageFor(model => model.PostText, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.PostText, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PostText, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PostText, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Deleted, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Deleted)
+                            @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+
+
+
+                <div class="form-group">
+                    <img src="~/Content/images/items/@Model.Image" style="width: 400px; border:solid 2px white; border-radius:5px; background:white;" />
+                    <br>
+                    <div class="control-label col-md-10"><strong>Ảnh đại diện:</strong></div>
+                    <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" class="p-3" />
+                    <hr>
+
                 </div>
-            </div>
 
-
-
-            <div class="form-group">
-                <img src="~/Content/images/items/@Model.Image" style="width: 400px; border:solid 2px white; border-radius:5px; background:white;" />
-                <br>
-                <div class="control-label col-md-10"><strong>Ảnh đại diện:</strong></div>
-                <input type="file" id="uploadhinh" name="uploadhinh" accept="image/*" class="p-3" />
-                <hr>
-
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Cập nhật" class="btn btn-success" />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Cập nhật" class="btn btn-success" />
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         }
     </form>
 </div>
+
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+

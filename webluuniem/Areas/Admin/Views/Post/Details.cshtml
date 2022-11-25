@@ -39,7 +39,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostText)
+            <textarea class="small-box form-control read" name="PostText" rows="20" >
+                @Model.PostText
+            </textarea>
+            
         </dd>
 
         <dt>

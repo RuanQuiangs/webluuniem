@@ -15,7 +15,7 @@ namespace webluuniem.Areas.Admin.Controllers
         Context _context = new Context();
         public ActionResult Index()
         {
-            if (Session["Id"] != null)
+            if (Session["Admin"] == "Admin")
             {
                 var lstProduct = _context.Products.ToList();
                 return View(lstProduct);
@@ -23,7 +23,13 @@ namespace webluuniem.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Users()
+        [HttpPost]
+        public JsonResult KeepSessionAlive()
+        {
+            return new JsonResult { Data = "Success" };
+        }
+
+        public ActionResult Test()
         {
             return View();
         }

@@ -23,13 +23,13 @@ namespace webluuniem.Controllers
         public ActionResult Index()
         {
             
-            HomeModel ObjHomeModel = new HomeModel();
-            ObjHomeModel.CategoryList = _context.Categorys.ToList();
+            HomeModel HomeModel = new HomeModel();
+            HomeModel.CategoryList = _context.Categorys.ToList();
            
-            ObjHomeModel.ProductList = _context.Products.ToList();
-
+            HomeModel.ProductList = _context.Products.ToList();
+            HomeModel.PostList = _context.Posts.ToList();
           
-            return View(ObjHomeModel);
+            return View(HomeModel);
         }
 
 
@@ -48,7 +48,7 @@ namespace webluuniem.Controllers
         
         public ActionResult Profile()
         {
-            if (Session["UserID"] != null)
+            if (Session["User"] != null)
             {
                 var userid = Int32.Parse(Session["UserID"].ToString());
                 
@@ -265,7 +265,7 @@ namespace webluuniem.Controllers
                     }
                     
                     _context.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Login");
                 }
 
               
@@ -285,6 +285,10 @@ namespace webluuniem.Controllers
 
         public ActionResult Login()
         {
+            if (Session["UserID"] != null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -310,7 +314,10 @@ namespace webluuniem.Controllers
                     Session["FullName"] = data.FirstName + " " + data.LastName;
                     Session["Email"] = data.Email;
                     Session["UserID"] = data.UserId;
-                    Session["IsAdmin"] = data.IsAdmin;
+                    if(data.IsAdmin == true)
+                    {
+                        Session["Admin"] = "Admin";
+                    }
                     Session["Avatar"] = data.Avatar;
                     return RedirectToAction("Index");
                 }

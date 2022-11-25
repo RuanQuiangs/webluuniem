@@ -52,13 +52,10 @@ namespace webluuniem.Models
 
     public enum OderStatus
     {
-        giohang = 0,
-        Dathang = 1,
-        Xacnhan = 2,
-        chuyenhang = 3,
-        giaohang = 4,
-        nhanhang = 5,
-        
+        cart = 0,
+        order = 1,
+        delivery = 2,
+        receive = 3
     }
 
 }

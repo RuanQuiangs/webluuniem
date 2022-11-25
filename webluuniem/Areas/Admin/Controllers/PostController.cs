@@ -19,7 +19,7 @@ namespace webluuniem.Areas.Admin.Controllers
 
         public ActionResult Index(string searchString, int? page)
         {
-
+            
             if (page == null) page = 1;
 
 
@@ -60,7 +60,8 @@ namespace webluuniem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.Posts.FirstOrDefault(c => c.PostTitle == model.PostTitle) != null)
+                var post = _context.Posts.SingleOrDefault(c => c.PostTitle == model.PostTitle);
+                if (post != null)
                 {
                     ViewBag.error = "Tên bài viết  đã tồn tại";
                     return View();
@@ -73,10 +74,8 @@ namespace webluuniem.Areas.Admin.Controllers
                     return View();
                 }
 
-               
-              
 
-                model.UserID = 1;
+                model.UserID = (int)Session["UserID"];
                 model.Slug = convertToUnSign2(model.PostTitle);
                 _context.Configuration.ValidateOnSaveEnabled = false;
                 _context.Posts.Add(model);
@@ -122,15 +121,20 @@ namespace webluuniem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_context.Posts.FirstOrDefault(c => c.PostTitle == model.PostTitle && c.PostID!= model.PostID) != null)
+                var post = _context.Posts.FirstOrDefault(c => c.PostTitle == model.PostTitle && c.PostID != model.PostID);
+                if (post != null)
                 {
                     ViewBag.error = "Tiêu đề đã tồn tại";
+                    return View();
+                }
+                if (model.PostTitle.Length > 150)
+                {
+                    ViewBag.error = "Tiêu đề không quá 150 kí tự ( Khoảng 30 từ )";
                     return View();
                 }
 
                 var cat = _context.Posts.SingleOrDefault(c => c.PostID == model.PostID);
                 cat.PostTitle = model.PostTitle;
-
                 cat.Slug = convertToUnSign2(model.PostTitle);             
                 cat.Deleted = model.Deleted;
                 cat.PostText = model.PostText;
@@ -149,7 +153,7 @@ namespace webluuniem.Areas.Admin.Controllers
                     _FileName = "post" + id.ToString() + "." + uploadhinh.FileName.Substring(index + 1);
                     string _path = Path.Combine(Server.MapPath("~/Content/images/items"), _FileName);
                     uploadhinh.SaveAs(_path);
-                    model.Image = _FileName;
+                    cat.Image = _FileName;
                 }
 
                 if (cat.Image == null)
@@ -194,6 +198,12 @@ namespace webluuniem.Areas.Admin.Controllers
             sb = sb.Replace('Đ', 'D');
             sb = sb.Replace('đ', 'd');
             return (sb.ToString().Normalize(NormalizationForm.FormD));
+        }
+
+        [HttpPost]
+        public JsonResult KeepSessionAlive()
+        {
+            return new JsonResult { Data = "Success" };
         }
 
     }

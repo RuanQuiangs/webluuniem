@@ -1,0 +1,199 @@
+﻿
+@model webluuniem.Models.PostModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- Begin Main Content Area -->
+
+
+<div class="content-wrapper">
+    <div class="container">
+
+        <div class="card mb-3 my-3">
+            <div class="card-body">
+                <ol class="breadcrumb float-left">
+                    <li class="breadcrumb-item"><a href="~/Home/Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="~/News/Index">Tin tức</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Details","News", new {@slug = @Model.Post.Slug})"> @Model.Post.PostTitle</a></li>
+                </ol>
+            </div> <!-- card-body .// -->
+        </div>
+
+
+        <div class="row" data-aos="fade-up">
+
+            <div class="col-xl-9 stretch-card grid-margin">
+                <div class="row">
+                    <div class="rotate-img container p-2 m-2 bg-white ">
+                        <a href="@Url.Action("Details","News", new {@slug = @Model.Post.Slug})">
+                            <img src="~/Content/images/items/@Model.Post.Image"
+                                 alt="banner"
+                                 class="img-bg container" />
+                        </a>
+                    </div>
+                    <div class="bg-white p-lg-3 m-2 container">
+                        <a href="@Url.Action("Details","News", new {@slug = @Model.Post.Slug})">
+                            <h2 class="font-weight-600 mb-2 ">
+                                @Model.Post.PostTitle
+                            </h2>
+                        </a>
+
+                        <p class="fs-13 text-muted mb-0">
+                            <span class="mr-2">Đăng: </span>@Model.Post.CreateDate
+                        </p>
+                    </div>
+                    <div class="bg-white p-lg-1 m-2 p-3">
+                        <p style="white-space:pre-line" class="p-lg-4">@Model.Post.PostText</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-xl-3 stretch-card grid-margin">
+                <div class="container">
+                    <h2 class="mb-4 text-primary font-weight-600">
+                        Tin mới cập nhật
+                    </h2>
+
+                    <div class="row">
+                        @foreach (var item in Model.PostList.Take(3))
+                        {
+                        
+                                <div class="col-sm-12">
+                                    <div class="border-bottom pb-4 pt-4">
+                                        <div class="row">
+                                            <div class="container">
+                                                <a href="@Url.Action("Details","News", new {@slug = item.Slug})">
+                                                    <h5 class="font-weight-600 mb-1">
+                                                        @item.PostTitle
+                                                    </h5>
+                                                </a>
+                                                    <p class="fs-13 text-muted mb-0">
+                                                        <span class="mr-2">Post: </span>@item.CreateDate
+                                                    </p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="container">
+                                                    <div class="rotate-img">
+                                                        <a href="@Url.Action("Details","News", new {@slug = item.Slug})">
+                                                            <img src="~/Content/images/items/@item.Image"
+                                                                 alt="banner"
+                                                                 class="img-fluid" />
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                       
+                        }
+                    </div>
+                    <div class="container">
+                        <h2 class="mb-4 text-primary font-weight-600">
+                            Tin tức
+                        </h2>
+
+                        <div class="row">
+                            @foreach (var item in Model.PostList.Take(3).OrderByDescending(c=>c.PostTitle))
+                            {
+                               
+                                    <div class="col-sm-12 bg-white">
+                                        <div class="border-bottom pb-4 pt-4">
+                                            <div class="row">
+                                                <div class="container">
+                                                    <a href="@Url.Action("Details","News", new {@slug = @item.Slug})" class="bg-white my-3">
+                                                        <h5 class="font-weight-600 mb-1">
+                                                            @item.PostTitle
+                                                        </h5>
+                                                    </a>
+                                                        <p class="fs-13 text-muted mb-0">
+                                                            <span class="mr-2">Post: </span>@item.CreateDate
+                                                        </p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="container">
+                                                        <div class="rotate-img">
+                                                            <a href="@Url.Action("Details","News", new {@slug = @item.Slug})" class="bg-white my-3">
+                                                                <img src="~/Content/images/items/@item.Image"
+                                                                     alt="banner"
+                                                                     class="img-fluid" />
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                             
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+
+            <div class="col-md-9">
+                 @foreach (var item in Model.CommentList.Take(5).Where(c =>c.PostID == Model.Post.PostID))
+                 {
+                    <div class="card my-1">
+                        <div class="card-body">
+                            <div class="row">
+                                
+                                <div class="col-sm-2 rotate-img">
+                                    <img src="~/Content/images/avatars/@Model.UserList.FirstOrDefault(c => c.UserId == item.UserID).Avatar"
+                                         alt="banner"
+                                         class="img-bg container" />
+                                </div>
+                                <div class="col-sm-10">
+                                    <p> </p>
+                                    <p><b>@Model.UserList.FirstOrDefault(c => c.UserId == item.UserID).FirstName @Model.UserList.FirstOrDefault(c => c.UserId == item.UserID).LastName</b> <span class=""> Bình luận lúc: </span>@item.DateComment</p>
+                                    <p  class="p-lg-4">@item.Text</p>
+                                    
+                                       
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 }
+                    <h4 style="color:red;">@ViewData["error"]</h4>
+                    <form action="" method="post" enctype="multipart/form-data">
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <input type="text" name="PostID" id="PostID" value="@Model.Post.PostID" style="display:none">
+                                <div class="form-group">
+                                    <h4 class="control-label col-md-12">Bình luận bài viết</h4>
+                                    <div class="container">
+                                        <textarea class="form-control" id="Text" name="Text" rows="5"></textarea>
+
+                                        @Html.ValidationMessageFor(model => model.Comment.Text, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Bình luận" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </form>
+                </div>
+                </div>
+
+            </div>
+</div>

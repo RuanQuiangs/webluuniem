@@ -79,10 +79,10 @@
                             @if (Session["UserID"] != null)
                             {
                                 <div class="widget-header mr-3">
-                                    <a href="Home/Profile" class="widget-view ">
+                                    <a href="~/Home/Profile" class="widget-view ">
                                         <div style="width: 50px; height: 50px;">
 
-                                            <img src="~/Content/images/avatars/@Session["Avatar"]" class="img-avatar" title="Trang cá nhân" />
+                                            <img src="~/Content/images/avatars/@Session["Avatar"]" class="img-avatar" title="Trang cá nhân"/>
                                         </div>
 
                                     </a>
@@ -106,7 +106,7 @@
                                         <small class="text"> Giỏ hàng </small>
                                     </a>
                                 </div>
-                                if (@Session["IsAdmin"].ToString() == true.ToString())
+                                if (@Session["Admin"] == "Admin")
                                 {
                                     <div class="widget-header mr-3">
                                         <a href="~/Admin/Home" class="widget-view">
@@ -182,17 +182,20 @@
                         </li>
                         <li class="nav-item">
                             <a href="~/Category/Index" class="nav-link" data-toggle="dropdown">DANH MỤC</a>
-                           
+
                         </li>
-                       
+
                         <li class="nav-item">
-                            <a class="nav-link" href="~/Order/Offers">KHUYẾN MÃI</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Post/Index">TIN TỨC</a>
+                            <a class="nav-link" href="~/Product/Offers">KHUYẾN MÃI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="~Home/Contact">LIÊN HỆ</a>
+                            <a class="nav-link" href="~/News/Index">TIN TỨC</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~Home/Contact">GÓP Ý</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~Home/About">GIỚI THIỆU</a>
                         </li>
                     </ul>
                   
